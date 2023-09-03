@@ -1,46 +1,46 @@
-name: Auto commit
+# name: Auto commit
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-  # schedule:
-  #   - cron: "0 7,8,9,10,11 * * 1,2,3,4,5,6" # See https://crontab.guru/#0 7,8,9,10,11 * * 1,2,3,4,5,6
+#   # schedule:
+#   #   - cron: "0 7,8,9,10,11 * * 1,2,3,4,5,6" # See https://crontab.guru/#0 7,8,9,10,11 * * 1,2,3,4,5,6
 
-jobs:
-  auto_commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-          fetch-depth: 0
+# jobs:
+#   auto_commit:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           persist-credentials: false
+#           fetch-depth: 0
 
-      - name: Modify last update
-        run: |
-          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > LAST_UPDATED
+#       - name: Modify last update
+#         run: |
+#           d=`date '+%Y-%m-%dT%H:%M:%SZ'`
+#           echo $d > LAST_UPDATED
 
-      - name: Commit changes
-        run: |
-          git config --local user.email "__"
-          git config --local user.name "__"
-          git add -A
+#       - name: Commit changes
+#         run: |
+#           git config --local user.email "__"
+#           git config --local user.name "__"
+#           git add -A
 
-          arr[0]="add: 🌳 plant a tree"
-          arr[1]="add: 🚀 plant a rocket"
-          arr[2]="add: 🌏 plant a earth"
-          arr[3]="add: 🐞 plant a bug"
-          arr[4]="add: 📕 plant a book"
+#           arr[0]="add: 🌳 plant a tree"
+#           arr[1]="add: 🚀 plant a rocket"
+#           arr[2]="add: 🌏 plant a earth"
+#           arr[3]="add: 🐞 plant a bug"
+#           arr[4]="add: 📕 plant a book"
 
-          rand=$[$RANDOM % ${#arr[@]}]
+#           rand=$[$RANDOM % ${#arr[@]}]
 
-          git commit -m "${arr[$rand]}"
+#           git commit -m "${arr[$rand]}"
 
-      - name: GitHub Push
-        uses: ad-m/github-push-action@master
-        with:
-          force-with-lease: true
-          directory: "."
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: GitHub Push
+#         uses: ad-m/github-push-action@master
+#         with:
+#           force-with-lease: true
+#           directory: "."
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
